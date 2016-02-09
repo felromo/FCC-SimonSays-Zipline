@@ -1,0 +1,23 @@
+{
+  "name": "simon-says",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Tyrantz <tyrantwarzhip@gmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "font-awesome": "~4.5.0",
+    "react": "~0.14.6"
+  }
+}
