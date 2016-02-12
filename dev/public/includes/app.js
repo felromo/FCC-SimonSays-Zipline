@@ -1,15 +1,30 @@
 var React = require("react");
 var ReactDOM = require("react-dom");
+var EventEmitter = require("events").EventEmitter;
+var AppConstants = require("./constants/AppConstants.js");
+var AppDispatcher = require("./dispatcher/AppDispatcher.js");
+var AppActions = require("./actions/AppActions.js");
+var AppStore = require("./stores/AppStores.js");
+
+
 
 var Board = React.createClass({
+  _generateQueueElement: function () {
+    return Math.floor(Math.random() * 4);
+  },
+  getInitialState: function () {
+    return {
+      queue: []
+    };
+  },
   render: function () {
     return (
       <div>
         <Menu />
-        <GameBlock />
-        <GameBlock />
-        <GameBlock />
-        <GameBlock />
+        <GameBlock id="GREEN"/>
+        <GameBlock id="RED"/>
+        <GameBlock id="BLUE"/>
+        <GameBlock id="YELLOW"/>
       </div>
     );
   }
@@ -27,6 +42,9 @@ var Menu = React.createClass({
   }
 });
 var MenuPower = React.createClass({
+  _onClickHandler: function () {
+    AppActions.flipPowerSwitch();
+  },
   render: function () {
     return (
       <div>I am a power button</div>
@@ -49,9 +67,12 @@ var MenuDisplay = React.createClass({
 });
 
 var GameBlock = React.createClass({
+  _onClickHandler: function () {
+    AppActions.clickedButton(AppConstants[this.props.id]);
+  },
   render: function () {
     return (
-      <button>I am a gameblock</button>
+      <button id={this.props.id} onClick={this._onClickHandler}>I am a gameblock</button>
     );
   }
 });
