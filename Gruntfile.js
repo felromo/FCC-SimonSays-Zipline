@@ -91,7 +91,7 @@ module.exports = function (grunt) {
             files: [
               'dev/public/index.html',
               'dev/public/includes/main.js',
-              'dev/public/includes/app.js',
+              // 'dev/public/includes/app.js',
               'dev/public/includes/style.css'
             ]
           },
