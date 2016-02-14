@@ -3,7 +3,13 @@ var assign = require("object-assign");
 var AppConstants = require("../constants/AppConstants.js");
 
 var AppDispatcher = assign(new Dispatcher(), {
-  handleAction: function (action) {
+  handleButtonAction: function (action) {
+    this.dispatch({
+      source: "VIEW_ACTION",
+      action: action
+    });
+  },
+  handlePowerSwitch: function (action) {
     this.dispatch({
       source: "VIEW_ACTION",
       action: action

@@ -6,25 +6,80 @@ var AppDispatcher = require("./dispatcher/AppDispatcher.js");
 var AppActions = require("./actions/AppActions.js");
 var AppStore = require("./stores/AppStores.js");
 
+function incrementQueue() {
 
+}
 
 var Board = React.createClass({
-  _generateQueueElement: function () {
-    return Math.floor(Math.random() * 4);
+  power: false,
+  strict_mode: false,
+  queue: [],
+  user_queue: [], 
+  _powerSwitch: function () {
+    this.power = !this.power;
+    if (this.power) {
+    this.queue.push(this._generateQueueElement());
+    console.log(this.queue);
+    } 
   },
-  getInitialState: function () {
-    return {
-      queue: []
-    };
+  _generateQueueElement: function () {
+    switch (Math.floor(Math.random() * 4)) {
+      case 0:
+          return AppConstants.GREEN;
+        break;
+      case 1:
+          return AppConstants.RED;
+        break;
+      case 2:
+          return AppConstants.BLUE;
+        break;
+      case 3:
+          return AppConstants.YELLOW;
+        break;
+    }
+  },
+  _onButtonClick: function (button) {
+    // in case we get the sequence wrong
+    var self = this;
+    this.user_queue.push(button);
+    var sequence_correct = this.queue.every(function (value, index) {
+      return self.user_queue[index] == value;
+    });
+
+    // before you start adding elements check, if we got the sequence correct first
+    if (sequence_correct) {      
+      var tmp = this._generateQueueElement();
+      this.queue.push(tmp);
+      console.log("button click generation: " + tmp);
+    } else {
+      // if strict mode on
+      if (this.strict_mode) {
+        // clear queue && user_queue if we got it wrong
+        this.queue = [];
+        this.user_queue = [];
+      } else { // if strict mode off
+        // remove the last button pressed by the user and let him try again
+        this.user_queue.pop();
+      }
+    }
+    console.log(this.queue);
+  },
+  // componentWillMount: function () {
+  //   this.setState({
+  //     queue: this.queue.push(this._generateQueueElement())
+  //   });
+  // },
+  componentDidMount: function () {
+   console.log(this.queue);
   },
   render: function () {
     return (
       <div>
-        <Menu />
-        <GameBlock id="GREEN"/>
-        <GameBlock id="RED"/>
-        <GameBlock id="BLUE"/>
-        <GameBlock id="YELLOW"/>
+        <Menu powerSwitch={this._powerSwitch}/>
+        <GameBlock id="GREEN" onButtonClick={this._onButtonClick}/>
+        <GameBlock id="RED" onButtonClick={this._onButtonClick}/>
+        <GameBlock id="BLUE" onButtonClick={this._onButtonClick}/>
+        <GameBlock id="YELLOW" onButtonClick={this._onButtonClick}/>
       </div>
     );
   }
@@ -35,7 +90,7 @@ var Menu = React.createClass({
     return (
       <div>
         <MenuDisplay />
-        <MenuPower />
+        <MenuPower powerSwitch={this.props.powerSwitch}/>
         <MenuStrictMode />
       </div>
     );
@@ -44,10 +99,11 @@ var Menu = React.createClass({
 var MenuPower = React.createClass({
   _onClickHandler: function () {
     AppActions.flipPowerSwitch();
+    this.props.powerSwitch();
   },
   render: function () {
     return (
-      <div>I am a power button</div>
+      <div onClick={this._onClickHandler}>I am a power button</div>
     );
   }
 });
@@ -69,10 +125,11 @@ var MenuDisplay = React.createClass({
 var GameBlock = React.createClass({
   _onClickHandler: function () {
     AppActions.clickedButton(AppConstants[this.props.id]);
+    this.props.onButtonClick(AppConstants[this.props.id]);
   },
   render: function () {
     return (
-      <button id={this.props.id} onClick={this._onClickHandler}>I am a gameblock</button>
+      <button id={this.props.id} onClick={this._onClickHandler}>{"I am a " + this.props.id + "gameblock"}</button>
     );
   }
 });

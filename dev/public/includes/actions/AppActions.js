@@ -3,15 +3,15 @@ var AppConstants = require("../constants/AppConstants.js");
 
 var AppActions = {
   clickedButton: function (button) {
-    AppDispatcher.handleAction({
+    AppDispatcher.handleButtonAction({
       actionType:AppConstants.CLICKED_BUTTON,
       data: button
     });
   },
   flipPowerSwitch: function () {
-    AppDispatcher.handleAction({
+    AppDispatcher.handlePowerSwitch({
       actionType:AppConstants.FLIPPED_SWITCH
-    })
+    });
   }
 };
 

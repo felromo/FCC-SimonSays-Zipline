@@ -20,12 +20,14 @@ AppDispatcher.register(function (payload) {
   switch (payload.action.actionType) {
     case AppConstants.FLIPPED_SWITCH:
       console.log("Player turned game on");
-      AppStore.emitChange();
       break;
     case AppConstants.CLICKED_BUTTON:
-      console.log("Player clicked button");
+      console.log(payload.action.data);
       break;
+    default:
+      return true;
   }
+  AppStore.emitChange();
   return true;
 });
 
