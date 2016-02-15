@@ -6,7 +6,9 @@ var AppConstants = {
   YELLOW: "YELLOW",
   CLICKED_BUTTON: "CLICKED_BUTTON",
   FLIPPED_SWITCH: "FLIPPED_SWITCH",
-  CHANGE_EVENT: "change"
+  CHANGE_EVENT: "change",
+  OFF: "false",
+  ON: "true"
 };
 
 module.exports = AppConstants;

@@ -39,15 +39,22 @@ var Board = React.createClass({
     }
   },
   _onButtonClick: function (button) {
-    // in case we get the sequence wrong
     var self = this;
     this.user_queue.push(button);
+    // don't do any of the logic until the sequences are the same length
+    if (this.user_queue.length != this.queue.length) {
+      // detect errors automatically as they happen
+      if (this.queue[this.user_queue.length-1] != this.user_queue[this.user_queue.length-1]) {
+        this.user_queue = []; 
+        console.log("Error please start the sequence over!");
+      }
+      return;
+    } 
     var sequence_correct = this.queue.every(function (value, index) {
       return self.user_queue[index] == value;
     });
-
     // before you start adding elements check, if we got the sequence correct first
-    if (sequence_correct) {      
+    if (sequence_correct && (this.user_queue.length == this.queue.length)) {      
       var tmp = this._generateQueueElement();
       this.queue.push(tmp);
       console.log("button click generation: " + tmp);
@@ -56,12 +63,12 @@ var Board = React.createClass({
       if (this.strict_mode) {
         // clear queue && user_queue if we got it wrong
         this.queue = [];
-        this.user_queue = [];
       } else { // if strict mode off
         // remove the last button pressed by the user and let him try again
-        this.user_queue.pop();
+        this.user_queue = [];
       }
     }
+    this.user_queue = [];
     console.log(this.queue);
   },
   // componentWillMount: function () {
