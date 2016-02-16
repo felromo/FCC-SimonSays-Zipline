@@ -81,7 +81,7 @@ var Board = React.createClass({
   },
   render: function () {
     return (
-      <div>
+      <div className="board">
         <Menu powerSwitch={this._powerSwitch}/>
         <GameBlock id="GREEN" onButtonClick={this._onButtonClick}/>
         <GameBlock id="RED" onButtonClick={this._onButtonClick}/>
@@ -95,7 +95,7 @@ var Board = React.createClass({
 var Menu = React.createClass({
   render: function () {
     return (
-      <div>
+      <div className="menu">
         <MenuDisplay />
         <MenuPower powerSwitch={this.props.powerSwitch}/>
         <MenuStrictMode />
@@ -136,7 +136,7 @@ var GameBlock = React.createClass({
   },
   render: function () {
     return (
-      <button id={this.props.id} onClick={this._onClickHandler}>{"I am a " + this.props.id + "gameblock"}</button>
+      <button id={this.props.id} className="simon-button"onClick={this._onClickHandler}>{"I am a " + this.props.id + "gameblock"}</button>
     );
   }
 });
