@@ -1,0 +1,46 @@
+$board-color: #333238;
+$background-color: #324e5c;
+$green-block: #38a3ac;
+$red-block: #f73955;
+$blue-block: #467b87;
+$yellow-block: #eec84c;
+$menu-color: #dbdeb5;
+$board-height: 700px;
+$board-width: 700px;
+
+body {
+  background: $background-color;
+}
+
+.board {
+  background: $board-color;
+  position: relative;
+  width: $board-width;
+  height: $board-height;
+  border-radius: 50%;
+  text-align: center;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.simon-button {
+  width: $board-width/2;
+  height: $board-height/2;
+  &#GREEN {
+    background: $green-block;
+  }
+  &#RED {
+    background: $red-block;
+  }
+  &#BLUE {
+    background: $blue-block;
+  }
+  &#YELLOW {
+    background: $yellow-block;
+  }
+}
+
+.menu {
+  position: absolute;
+  visibility: hidden;
+}
