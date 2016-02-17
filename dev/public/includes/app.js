@@ -111,7 +111,7 @@ var MenuPower = React.createClass({
   },
   render: function () {
     return (
-      <div className="menu-power" onClick={this._onClickHandler}>*</div>
+      <div className="menu-power" onClick={this._onClickHandler}><i className="fa fa-power-off"></i></div>
     );
   }
 });
@@ -125,14 +125,10 @@ var MenuStrictMode = React.createClass({
 var MenuDisplay = React.createClass({
   render: function () {
     return (
-      <div className="menu-display">*</div>
+      <div className="menu-display"></div>
     );
   }
 });
-
-function button_lightup (id) {
-  return;  
-}
 
 var GameBlock = React.createClass({
   _onClickHandler: function () {

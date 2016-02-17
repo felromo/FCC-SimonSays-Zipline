@@ -28,7 +28,7 @@ body {
   height: $board-height;
   border-radius: 50%;
   text-align: center;
-  margin: 0 auto;
+  margin: 30px auto;
   overflow: hidden;
   border: $board-color 15px solid;
 }
@@ -100,3 +100,29 @@ body {
   height: 130px;
   background: $display-color;
 }
+
+.menu-power {
+  position: relative;
+  top: 0;
+  background: $red-block;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  margin: 20px auto;
+  border: $board-color 2px solid;
+  box-shadow: 0px 1px rgba(0,0,0,0.50);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:active {
+    top: 1px;
+    box-shadow: 0 0 $red-block;
+  }
+  i {
+    color: $board-color;
+    font-size: 20px;
+    margin-top: 2px;
+  }
+}
+
+
+
