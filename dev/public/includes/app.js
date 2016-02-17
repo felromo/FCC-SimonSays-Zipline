@@ -118,7 +118,9 @@ var MenuPower = React.createClass({
 var MenuStrictMode = React.createClass({
   render: function () {
     return (
-      <div className="menu-mode">*</div>
+      <div className="menu-mode">
+        <p className="menu-mode-label">Strict<i className="fa fa-circle"></i></p>
+      </div>
     );
   }
 });
