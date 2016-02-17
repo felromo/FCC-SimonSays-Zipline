@@ -116,9 +116,12 @@ var MenuPower = React.createClass({
   }
 });
 var MenuStrictMode = React.createClass({
+  _onClickHandler: function () {
+    $('.menu-mode-label i').toggleClass('strict-mode-active');
+  },
   render: function () {
     return (
-      <div className="menu-mode">
+      <div className="menu-mode" onClick={this._onClickHandler}>
         <p className="menu-mode-label">Strict<i className="fa fa-circle"></i></p>
       </div>
     );
@@ -127,7 +130,9 @@ var MenuStrictMode = React.createClass({
 var MenuDisplay = React.createClass({
   render: function () {
     return (
-      <div className="menu-display"></div>
+      <div className="menu-display">
+        <p>1</p>
+      </div>
     );
   }
 });
