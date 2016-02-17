@@ -85,8 +85,8 @@ var Board = React.createClass({
         <Menu powerSwitch={this._powerSwitch}/>
         <GameBlock id="GREEN" onButtonClick={this._onButtonClick}/>
         <GameBlock id="RED" onButtonClick={this._onButtonClick}/>
-        <GameBlock id="BLUE" onButtonClick={this._onButtonClick}/>
         <GameBlock id="YELLOW" onButtonClick={this._onButtonClick}/>
+        <GameBlock id="BLUE" onButtonClick={this._onButtonClick}/>
       </div>
     );
   }
@@ -110,21 +110,21 @@ var MenuPower = React.createClass({
   },
   render: function () {
     return (
-      <div onClick={this._onClickHandler}>I am a power button</div>
+      <div className="menu-power" onClick={this._onClickHandler}>*</div>
     );
   }
 });
 var MenuStrictMode = React.createClass({
   render: function () {
     return (
-      <div>I am strict mode switch</div>
+      <div className="menu-mode">*</div>
     );
   }
 });
 var MenuDisplay = React.createClass({
   render: function () {
     return (
-      <div>I am the display</div>
+      <div className="menu-display">*</div>
     );
   }
 });
@@ -136,7 +136,7 @@ var GameBlock = React.createClass({
   },
   render: function () {
     return (
-      <button id={this.props.id} className="simon-button"onClick={this._onClickHandler}>{"I am a " + this.props.id + "gameblock"}</button>
+      <button id={this.props.id} className="simon-button"onClick={this._onClickHandler}></button>
     );
   }
 });

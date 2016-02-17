@@ -1,12 +1,20 @@
 $board-color: #333238;
 $background-color: #324e5c;
-$green-block: #38a3ac;
+$green-block: #38ac87;
+$green-block-highlight: #4af5be;
 $red-block: #f73955;
-$blue-block: #467b87;
+$red-block-highlight: #f97487;
+$blue-block: #2a96bd;
+$blue-block-highlight: #34bcec;
 $yellow-block: #eec84c;
+$yellow-block-highlight: #f7d876;
 $menu-color: #dbdeb5;
 $board-height: 700px;
 $board-width: 700px;
+
+*{
+  user-select: none;
+}
 
 body {
   background: $background-color;
@@ -21,26 +29,55 @@ body {
   text-align: center;
   margin: 0 auto;
   overflow: hidden;
+  border: $board-color 15px solid;
 }
 
 .simon-button {
   width: $board-width/2;
   height: $board-height/2;
+  cursor: pointer;
+  &:focus {
+    outline: 0;
+  }
   &#GREEN {
     background: $green-block;
+    border-right: $board-color 10px solid;
+    border-top: none;
+    border-bottom: $board-color 10px solid;
+    border-left: none;
   }
   &#RED {
     background: $red-block;
+    border-left: $board-color 10px solid;
+    border-top: none;
+    border-bottom: $board-color 10px solid;
+    border-right: none;
   }
   &#BLUE {
     background: $blue-block;
+    border-left: $board-color 10px solid;
+    border-top: $board-color 10px solid;
+    border-bottom: none;
+    border-right: none;
   }
   &#YELLOW {
     background: $yellow-block;
+    border-right: $board-color 10px solid;
+    border-top: $board-color 10px solid;
+    border-left: none;
   }
 }
 
 .menu {
   position: absolute;
-  visibility: hidden;
+  background: $menu-color;
+  left: 50%;
+  top: 50%;
+  width: 300px;
+  height: 300px;
+  margin-left: -150px;
+  margin-top: -150px;
+  border-radius: 50%;
+  border: $board-color 15px solid;
+  box-sizing: border-box;
 }
