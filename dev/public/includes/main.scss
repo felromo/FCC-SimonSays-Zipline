@@ -9,6 +9,7 @@ $blue-block-highlight: #34bcec;
 $yellow-block: #eec84c;
 $yellow-block-highlight: #f7d876;
 $menu-color: #dbdeb5;
+$display-color: rgba(50,78,92,0.48);
 $board-height: 700px;
 $board-width: 700px;
 
@@ -92,4 +93,10 @@ body {
   border-radius: 50%;
   border: $board-color 15px solid;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.menu-display {
+  height: 130px;
+  background: $display-color;
 }
