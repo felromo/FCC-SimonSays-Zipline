@@ -5,6 +5,7 @@ var AppConstants = require("./constants/AppConstants.js");
 var AppDispatcher = require("./dispatcher/AppDispatcher.js");
 var AppActions = require("./actions/AppActions.js");
 var AppStore = require("./stores/AppStores.js");
+var $ = require("jquery");
 
 function incrementQueue() {
 
@@ -128,6 +129,10 @@ var MenuDisplay = React.createClass({
     );
   }
 });
+
+function button_lightup (id) {
+  return;  
+}
 
 var GameBlock = React.createClass({
   _onClickHandler: function () {
