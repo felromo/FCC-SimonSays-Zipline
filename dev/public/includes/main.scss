@@ -45,6 +45,9 @@ body {
     border-top: none;
     border-bottom: $board-color 10px solid;
     border-left: none;
+    &:active {
+      background: $green-block-highlight;
+    }
   }
   &#RED {
     background: $red-block;
@@ -52,6 +55,9 @@ body {
     border-top: none;
     border-bottom: $board-color 10px solid;
     border-right: none;
+    &:active {
+      background: $red-block-highlight;
+    }
   }
   &#BLUE {
     background: $blue-block;
@@ -59,12 +65,18 @@ body {
     border-top: $board-color 10px solid;
     border-bottom: none;
     border-right: none;
+    &:active {
+      background: $blue-block-highlight;
+    }
   }
   &#YELLOW {
     background: $yellow-block;
     border-right: $board-color 10px solid;
     border-top: $board-color 10px solid;
     border-left: none;
+    &:active {
+      background: $yellow-block-highlight;
+    }
   }
 }
 
