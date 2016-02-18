@@ -14,6 +14,12 @@ var AppDispatcher = assign(new Dispatcher(), {
       source: "VIEW_ACTION",
       action: action
     });
+  },
+  handleSequenceLengthIncremented: function (action) {
+    this.dispatch({
+      source: "VIEW_ACTION",
+      action: action
+    })
   }
 });
 

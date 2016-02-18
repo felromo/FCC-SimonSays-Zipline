@@ -12,6 +12,12 @@ var AppActions = {
     AppDispatcher.handlePowerSwitch({
       actionType:AppConstants.FLIPPED_SWITCH
     });
+  },
+  sequenceLengthIncremented: function (sequence) {
+    AppDispatcher.handleSequenceLengthIncremented({
+      actionType: "SEQUENCE_INCREMENTED",
+      data: sequence
+    });
   }
 };
 

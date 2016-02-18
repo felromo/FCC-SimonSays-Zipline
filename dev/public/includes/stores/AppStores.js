@@ -13,6 +13,10 @@ var AppStore = assign({}, EventEmitter.prototype, {
   },
   removeChangeListener: function (callback) {
     this.removeListener("change", callback);
+  },
+  sequence: [],
+  getSequence: function () {
+    return this.sequence;
   }
 });
 
@@ -23,6 +27,11 @@ AppDispatcher.register(function (payload) {
       break;
     case AppConstants.CLICKED_BUTTON:
       console.log(payload.action.data);
+      break;
+    case "SEQUENCE_INCREMENTED":
+      // console.log(payload.action.data);
+      console.log("can you hear me I changed?");
+      AppStore.sequence = payload.action.data;
       break;
     default:
       return true;

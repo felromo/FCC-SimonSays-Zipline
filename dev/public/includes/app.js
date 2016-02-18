@@ -21,7 +21,10 @@ var Board = React.createClass({
     if (this.power) {
     this.queue.push(this._generateQueueElement());
     console.log(this.queue);
-    } 
+    AppActions.sequenceLengthIncremented(this.queue);
+    } else {
+      this.queue = [];
+    }
   },
   _generateQueueElement: function () {
     switch (Math.floor(Math.random() * 4)) {
@@ -58,6 +61,7 @@ var Board = React.createClass({
     if (sequence_correct && (this.user_queue.length == this.queue.length)) {      
       var tmp = this._generateQueueElement();
       this.queue.push(tmp);
+      AppActions.sequenceLengthIncremented(this.queue);
       console.log("button click generation: " + tmp);
     } else {
       // if strict mode on
@@ -83,7 +87,7 @@ var Board = React.createClass({
   render: function () {
     return (
       <div className="board">
-        <Menu powerSwitch={this._powerSwitch}/>
+        <Menu powerSwitch={this._powerSwitch} queueLength={this.queue.length}/>
         <GameBlock id="GREEN" onButtonClick={this._onButtonClick}/>
         <GameBlock id="RED" onButtonClick={this._onButtonClick}/>
         <GameBlock id="YELLOW" onButtonClick={this._onButtonClick}/>
@@ -97,7 +101,7 @@ var Menu = React.createClass({
   render: function () {
     return (
       <div className="menu">
-        <MenuDisplay />
+        <MenuDisplay queueLength={this.props.queueLength}/>
         <MenuPower powerSwitch={this.props.powerSwitch}/>
         <MenuStrictMode />
       </div>
@@ -106,7 +110,7 @@ var Menu = React.createClass({
 });
 var MenuPower = React.createClass({
   _onClickHandler: function () {
-    AppActions.flipPowerSwitch();
+    // AppActions.flipPowerSwitch();
     this.props.powerSwitch();
   },
   render: function () {
@@ -128,10 +132,28 @@ var MenuStrictMode = React.createClass({
   }
 });
 var MenuDisplay = React.createClass({
+  componentWillMount: function () {
+    AppStore.addChangeListener(this._onChange);
+  },
+  componentWillUnmount: function () {
+    AppStore.removeChangeListener(this._onChange);
+  },
+  _onChange: function () {
+    //TODO: here is where we should update the state that is being displayed
+    console.log("I heard it");
+    this.setState({
+      queueLength: AppStore.getSequence().length
+    });
+  },
+  getInitialState: function () {
+    return {
+      queueLength: 0
+    };
+  },
   render: function () {
     return (
       <div className="menu-display">
-        <p>1</p>
+        <p>{this.state.queueLength}</p>
       </div>
     );
   }
