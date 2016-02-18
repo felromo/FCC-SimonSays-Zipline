@@ -24,6 +24,7 @@ var Board = React.createClass({
     AppActions.sequenceLengthIncremented(this.queue);
     } else {
       this.queue = [];
+      AppActions.sequenceLengthIncremented(this.queue);
     }
   },
   _generateQueueElement: function () {
