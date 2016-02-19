@@ -255,6 +255,7 @@ var MenuDisplay = React.createClass({
 var GameBlock = React.createClass({
   _onClickHandler: function () {
     AppActions.clickedButton(AppConstants[this.props.id]);
+    playSound(AppConstants[this.props.id]);
     this.props.onButtonClick(AppConstants[this.props.id]);
   },
   render: function () {
