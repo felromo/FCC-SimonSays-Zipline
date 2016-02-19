@@ -86,6 +86,10 @@ var Board = React.createClass({
       AppActions.sequenceLengthIncremented(this.queue);
     }
   },
+  _strictMode: function () {
+    this.strict_mode = !this.strict_mode;
+    console.log("strict mode is: " + this.strict_mode);
+  },
   _generateQueueElement: function () {
     switch (Math.floor(Math.random() * 4)) {
       case 0:
@@ -110,8 +114,15 @@ var Board = React.createClass({
       // detect errors automatically as they happen
       if (this.queue[this.user_queue.length-1] != this.user_queue[this.user_queue.length-1]) {
         this.user_queue = []; 
-        console.log("Error please start the sequence over!");
-        runThroughSequence(this.queue);
+        if (this.strict_mode) {
+          this.queue = [];
+          this.queue.push(this._generateQueueElement());
+          AppActions.sequenceLengthIncremented(this.queue);
+          runThroughSequence(this.queue);
+        } else {
+          console.log("Error please start the sequence over!");
+          runThroughSequence(this.queue);
+        }
       }
       return;
     } 
@@ -129,9 +140,15 @@ var Board = React.createClass({
       // if strict mode on
       if (this.strict_mode) {
         // clear queue && user_queue if we got it wrong
+        console.log("i'm the strict mode if");
         this.queue = [];
+        this.queue.push(this._generateQueueElement());
+        AppActions.sequenceLengthIncremented(this.queue);
+        runThroughSequence(this.queue);
+        // it needs to present you with a brand new sequence starting from one
       } else { // if strict mode off
         // remove the last button pressed by the user and let him try again
+        console.log("I'm the else");
         this.user_queue = [];
         runThroughSequence(this.queue);
       }
@@ -150,7 +167,7 @@ var Board = React.createClass({
   render: function () {
     return (
       <div className="board">
-        <Menu powerSwitch={this._powerSwitch} queueLength={this.queue.length}/>
+        <Menu powerSwitch={this._powerSwitch} strictMode={this._strictMode} queueLength={this.queue.length}/>
         <GameBlock id="GREEN" onButtonClick={this._onButtonClick}/>
         <GameBlock id="RED" onButtonClick={this._onButtonClick}/>
         <GameBlock id="YELLOW" onButtonClick={this._onButtonClick}/>
@@ -166,7 +183,7 @@ var Menu = React.createClass({
       <div className="menu">
         <MenuDisplay queueLength={this.props.queueLength}/>
         <MenuPower powerSwitch={this.props.powerSwitch}/>
-        <MenuStrictMode />
+        <MenuStrictMode strictMode={this.props.strictMode}/>
       </div>
     );
   }
@@ -185,6 +202,7 @@ var MenuPower = React.createClass({
 var MenuStrictMode = React.createClass({
   _onClickHandler: function () {
     $('.menu-mode-label i').toggleClass('strict-mode-active');
+    this.props.strictMode();
   },
   render: function () {
     return (
