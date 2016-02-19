@@ -7,9 +7,67 @@ var AppActions = require("./actions/AppActions.js");
 var AppStore = require("./stores/AppStores.js");
 var $ = require("jquery");
 
-function incrementQueue() {
+function runThroughSequence(sequence) {
+  // take the sequence and run through every element
+  var seconds = .6;
+  var highlight_delay  = seconds * 1000;
+  setTimeout(function () {
+    sequence.forEach(function (value, index) {
+      // for every element take the value and run it through ids to select the element
+      console.log("my value is: " + value)
+      setTimeout( function () {
+        switch (value) {
+          case "GREEN":
+            // console.log("I'm running for green");
+            console.log($("#GREEN").css("background"));
+            // $("#GREEN").css("background", "#4af5be").delay(500).queue(function () {
+            //   $("#GREEN").css("background", "#38ac87").dequeue();
+            // });
+            $("#GREEN").addClass("GREEN");
+            setTimeout(function () {
+              $("#GREEN").removeClass("GREEN");
+            }, highlight_delay);
+            break;
+          case "RED":
+            // console.log("I'm running for red");
+            console.log($("#RED").css("background"));
+            // $("#RED").css("background", "#f97487").delay(500).queue(function () {
+            //   $("#RED").css("background", "#f73955").dequeue();
+            // });
+            $("#RED").addClass("RED");
+            setTimeout(function () {
+              $("#RED").removeClass("RED");
+            }, highlight_delay);
+            break;
+          case "YELLOW":
+            // console.log("I'm running for yellow");
+            console.log($("#YELLOW").css("background"));
+            // $("#YELLOW").css("background", "#f7d876").delay(500).queue(function () {
+            //   $("#YELLOW").css("background", "#eec84c").dequeue();
+            // });
+            $("#YELLOW").addClass("YELLOW");
+            setTimeout(function () {
+              $("#YELLOW").removeClass("YELLOW");
+            }, highlight_delay);
+            break;
+          case "BLUE":
+            // console.log("I'm running for blue");
+            console.log($("#BLUE").css("background"));
+            // $("#BLUE").css("background", "#34bcec").delay(500).queue(function () {
+            //   $("#BLUE").css("background", "#2a96bd").dequeue();
+            // });
+            $("#BLUE").addClass("BLUE");
+            setTimeout(function () {
+              $("#BLUE").removeClass("BLUE");
+            }, highlight_delay);
+            break;
+        }
+      }, 800 * index);
+    });
+  }, highlight_delay);
 
 }
+
 
 var Board = React.createClass({
   power: false,
@@ -22,6 +80,7 @@ var Board = React.createClass({
     this.queue.push(this._generateQueueElement());
     console.log(this.queue);
     AppActions.sequenceLengthIncremented(this.queue);
+    runThroughSequence(this.queue);
     } else {
       this.queue = [];
       AppActions.sequenceLengthIncremented(this.queue);
@@ -63,6 +122,7 @@ var Board = React.createClass({
       var tmp = this._generateQueueElement();
       this.queue.push(tmp);
       AppActions.sequenceLengthIncremented(this.queue);
+      runThroughSequence(this.queue);
       console.log("button click generation: " + tmp);
     } else {
       // if strict mode on

@@ -81,6 +81,11 @@ body {
   }
 }
 
+.GREEN { background: $green-block-highlight !important; }
+.RED { background: $red-block-highlight !important; }
+.BLUE { background: $blue-block-highlight !important; }
+.YELLOW { background: $yellow-block-highlight !important; }
+
 .menu {
   position: absolute;
   background: $menu-color;
