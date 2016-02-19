@@ -7,6 +7,9 @@ var AppActions = require("./actions/AppActions.js");
 var AppStore = require("./stores/AppStores.js");
 var $ = require("jquery");
 
+
+var audio = document.createElement("audio");
+
 function runThroughSequence(sequence) {
   // take the sequence and run through every element
   var seconds = .6;
@@ -18,45 +21,37 @@ function runThroughSequence(sequence) {
       setTimeout( function () {
         switch (value) {
           case "GREEN":
-            // console.log("I'm running for green");
             console.log($("#GREEN").css("background"));
-            // $("#GREEN").css("background", "#4af5be").delay(500).queue(function () {
-            //   $("#GREEN").css("background", "#38ac87").dequeue();
-            // });
             $("#GREEN").addClass("GREEN");
+            audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"
+            audio.play();
             setTimeout(function () {
               $("#GREEN").removeClass("GREEN");
             }, highlight_delay);
             break;
           case "RED":
-            // console.log("I'm running for red");
             console.log($("#RED").css("background"));
-            // $("#RED").css("background", "#f97487").delay(500).queue(function () {
-            //   $("#RED").css("background", "#f73955").dequeue();
-            // });
             $("#RED").addClass("RED");
+            audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"
+            audio.play();
             setTimeout(function () {
               $("#RED").removeClass("RED");
             }, highlight_delay);
             break;
           case "YELLOW":
-            // console.log("I'm running for yellow");
             console.log($("#YELLOW").css("background"));
-            // $("#YELLOW").css("background", "#f7d876").delay(500).queue(function () {
-            //   $("#YELLOW").css("background", "#eec84c").dequeue();
-            // });
             $("#YELLOW").addClass("YELLOW");
+            audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"
+            audio.play();
             setTimeout(function () {
               $("#YELLOW").removeClass("YELLOW");
             }, highlight_delay);
             break;
           case "BLUE":
-            // console.log("I'm running for blue");
             console.log($("#BLUE").css("background"));
-            // $("#BLUE").css("background", "#34bcec").delay(500).queue(function () {
-            //   $("#BLUE").css("background", "#2a96bd").dequeue();
-            // });
             $("#BLUE").addClass("BLUE");
+            audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"
+            audio.play();
             setTimeout(function () {
               $("#BLUE").removeClass("BLUE");
             }, highlight_delay);
