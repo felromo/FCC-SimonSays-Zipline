@@ -111,6 +111,7 @@ var Board = React.createClass({
       if (this.queue[this.user_queue.length-1] != this.user_queue[this.user_queue.length-1]) {
         this.user_queue = []; 
         console.log("Error please start the sequence over!");
+        runThroughSequence(this.queue);
       }
       return;
     } 
@@ -132,6 +133,7 @@ var Board = React.createClass({
       } else { // if strict mode off
         // remove the last button pressed by the user and let him try again
         this.user_queue = [];
+        runThroughSequence(this.queue);
       }
     }
     this.user_queue = [];
