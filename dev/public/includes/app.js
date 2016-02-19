@@ -10,6 +10,27 @@ var $ = require("jquery");
 
 var audio = document.createElement("audio");
 
+function playSound(id) {
+  switch (id) {
+    case "GREEN":
+      audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3";
+      audio.play();
+    break;
+    case "RED":
+      audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3";
+      audio.play();
+    break;
+    case "YELLOW":
+      audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3";
+      audio.play();
+    break;
+    case "BLUE":
+      audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3";
+      audio.play();
+    break;
+  }
+}
+
 function runThroughSequence(sequence) {
   // take the sequence and run through every element
   var seconds = .6;
@@ -23,8 +44,7 @@ function runThroughSequence(sequence) {
           case "GREEN":
             console.log($("#GREEN").css("background"));
             $("#GREEN").addClass("GREEN");
-            audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"
-            audio.play();
+            playSound("GREEN");
             setTimeout(function () {
               $("#GREEN").removeClass("GREEN");
             }, highlight_delay);
@@ -32,8 +52,7 @@ function runThroughSequence(sequence) {
           case "RED":
             console.log($("#RED").css("background"));
             $("#RED").addClass("RED");
-            audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"
-            audio.play();
+            playSound("RED");
             setTimeout(function () {
               $("#RED").removeClass("RED");
             }, highlight_delay);
@@ -41,8 +60,7 @@ function runThroughSequence(sequence) {
           case "YELLOW":
             console.log($("#YELLOW").css("background"));
             $("#YELLOW").addClass("YELLOW");
-            audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"
-            audio.play();
+            playSound("YELLOW");
             setTimeout(function () {
               $("#YELLOW").removeClass("YELLOW");
             }, highlight_delay);
@@ -50,8 +68,7 @@ function runThroughSequence(sequence) {
           case "BLUE":
             console.log($("#BLUE").css("background"));
             $("#BLUE").addClass("BLUE");
-            audio.src = "https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"
-            audio.play();
+            playSound("BLUE");
             setTimeout(function () {
               $("#BLUE").removeClass("BLUE");
             }, highlight_delay);
