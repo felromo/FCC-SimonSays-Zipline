@@ -9,6 +9,8 @@ var $ = require("jquery");
 
 
 var audio = document.createElement("audio");
+var turn  = 1;
+var winner_delay = 1;
 
 function playSound(id) {
   switch (id) {
@@ -136,6 +138,8 @@ var Board = React.createClass({
         this.user_queue = []; 
         if (this.strict_mode) {
           // AppActions.playerInputIncorrectSequence();
+          // go back to the first turn if you mess up in strict mode
+          turn = 1;
           this.queue = [];
           this.queue.push(this._generateQueueElement());
           displayError();
@@ -157,11 +161,23 @@ var Board = React.createClass({
     });
     // before you start adding elements check, if we got the sequence correct first
     if (sequence_correct && (this.user_queue.length == this.queue.length)) {      
-      var tmp = this._generateQueueElement();
-      this.queue.push(tmp);
-      AppActions.sequenceLengthIncremented(this.queue);
-      runThroughSequence(this.queue);
-      console.log("button click generation: " + tmp);
+      turn++;
+      if (turn == 20) {
+        // here is where we check if the player has won! display to him and restart the game
+        winner_delay = 1200;
+        console.log("you won");
+        $(".menu-text").text("WIN");
+        self.queue = [];
+        turn = 1;
+      }
+      setTimeout(function () {
+        var tmp = self._generateQueueElement();
+        self.queue.push(tmp);
+        AppActions.sequenceLengthIncremented(self.queue);
+        runThroughSequence(self.queue);
+        console.log("button click generation: " + tmp);
+      }, winner_delay);
+      winner_delay = 1;
     } else {
       // if strict mode on
       // AppActions.playerInputIncorrectSequence();
@@ -170,6 +186,7 @@ var Board = React.createClass({
         if (self.strict_mode) {
           // clear queue && user_queue if we got it wrong
           console.log("i'm the strict mode if");
+          turn = 1;
           self.queue = [];
           self.queue.push(self._generateQueueElement());
           AppActions.sequenceLengthIncremented(self.queue);
