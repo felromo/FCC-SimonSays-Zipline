@@ -31,6 +31,14 @@ function playSound(id) {
   }
 }
 
+function displayError() {
+  var prev_display = $(".menu-text").text();
+  $(".menu-text").text("!!");
+  setTimeout(function () {
+    $(".menu-text").text(prev_display);
+  }, 1000);
+}
+
 function runThroughSequence(sequence) {
   // take the sequence and run through every element
   var seconds = .6;
@@ -127,13 +135,19 @@ var Board = React.createClass({
       if (this.queue[this.user_queue.length-1] != this.user_queue[this.user_queue.length-1]) {
         this.user_queue = []; 
         if (this.strict_mode) {
+          // AppActions.playerInputIncorrectSequence();
           this.queue = [];
           this.queue.push(this._generateQueueElement());
-          AppActions.sequenceLengthIncremented(this.queue);
-          runThroughSequence(this.queue);
+          displayError();
+          setTimeout(function () {
+            AppActions.sequenceLengthIncremented(self.queue);
+            runThroughSequence(self.queue);
+          },1200);
         } else {
+          // AppActions.playerInputIncorrectSequence();
           console.log("Error please start the sequence over!");
-          runThroughSequence(this.queue);
+          displayError();
+          setTimeout(runThroughSequence(this.queue), 1200);
         }
       }
       return;
@@ -150,20 +164,24 @@ var Board = React.createClass({
       console.log("button click generation: " + tmp);
     } else {
       // if strict mode on
-      if (this.strict_mode) {
-        // clear queue && user_queue if we got it wrong
-        console.log("i'm the strict mode if");
-        this.queue = [];
-        this.queue.push(this._generateQueueElement());
-        AppActions.sequenceLengthIncremented(this.queue);
-        runThroughSequence(this.queue);
-        // it needs to present you with a brand new sequence starting from one
-      } else { // if strict mode off
-        // remove the last button pressed by the user and let him try again
-        console.log("I'm the else");
-        this.user_queue = [];
-        runThroughSequence(this.queue);
-      }
+      // AppActions.playerInputIncorrectSequence();
+      displayError();
+      setTimeout(function() {
+        if (self.strict_mode) {
+          // clear queue && user_queue if we got it wrong
+          console.log("i'm the strict mode if");
+          self.queue = [];
+          self.queue.push(self._generateQueueElement());
+          AppActions.sequenceLengthIncremented(self.queue);
+          runThroughSequence(self.queue);
+          // it needs to present you with a brand new sequence starting from one
+        } else { // if strict mode off
+          // remove the last button pressed by the user and let him try again
+          console.log("I'm the else");
+          self.user_queue = [];
+          runThroughSequence(self.queue);
+        }
+      }, 1200);
     }
     this.user_queue = [];
     console.log(this.queue);
@@ -227,15 +245,23 @@ var MenuStrictMode = React.createClass({
 var MenuDisplay = React.createClass({
   componentWillMount: function () {
     AppStore.addChangeListener(this._onChange);
+    AppStore.addErrorListener(this._onError);
   },
   componentWillUnmount: function () {
     AppStore.removeChangeListener(this._onChange);
+    AppStore.removeErrorListener(this._onError);
   },
   _onChange: function () {
     //TODO: here is where we should update the state that is being displayed
     console.log("I heard it");
     this.setState({
       queueLength: AppStore.getSequence().length
+    });
+  },
+  _onError: function () {
+    console.log("I heard the error");
+    this.setState({
+      queueLength: "!!"
     });
   },
   getInitialState: function () {
@@ -246,7 +272,7 @@ var MenuDisplay = React.createClass({
   render: function () {
     return (
       <div className="menu-display">
-        <p>{this.state.queueLength}</p>
+        <p className="menu-text">{this.state.queueLength}</p>
       </div>
     );
   }

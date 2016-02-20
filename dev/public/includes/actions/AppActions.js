@@ -18,6 +18,11 @@ var AppActions = {
       actionType: "SEQUENCE_INCREMENTED",
       data: sequence
     });
+  },
+  playerInputIncorrectSequence: function () {
+    AppDispatcher.handleSequenceLengthIncremented({
+      actionType: "PLAYER_INPUT_INCORRECT_SEQUENCE"
+    });
   }
 };
 

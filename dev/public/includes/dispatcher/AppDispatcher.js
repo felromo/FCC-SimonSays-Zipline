@@ -19,7 +19,13 @@ var AppDispatcher = assign(new Dispatcher(), {
     this.dispatch({
       source: "VIEW_ACTION",
       action: action
-    })
+    });
+  },
+  handlePlayerInputIncorrectSequence: function (action) {
+    this.dispatch({
+      source: "VIEW_ACTION",
+      action: action
+    });
   }
 });
 
